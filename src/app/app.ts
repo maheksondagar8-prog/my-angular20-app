@@ -1,21 +1,35 @@
 import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet , FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('my-angular20-app');
+  newTodo = '';
+  todos = signal<string[]>([]);
   count = signal(0);
   double = computed(() => this.count() * 2);
 
   // Increment
   increment() { 
-    this.count.update(c => c + 1); 
+    this.count.update(c => c + 1);
   }
   // reset data
   reset() { this.count.set(0); }
+
+
+  add() {
+  debugger
+    if (!this.newTodo.trim()) return;
+    this.todos.update(list => [...list, this.newTodo]);
+    this.newTodo = '';
+  }
+  remove(item: string) {
+    this.todos.update(list => list.filter(t => t !== item));
+  }
 }

@@ -1,13 +1,33 @@
 <!-- Section 1 Signal -->
-<div class="border p-2 text-primary mb-2">Signal</div>
+<div class="border p-2 text-primary mb-2">Component with Signals</div>
 <ul>
-    <li>A signal is a wrapper around a value that notifies interested consumers when that value changes. </li>
-    <li>Signals can contain any value, from primitives to complex data structures.</li>
-    <li>You read a signal's value by calling its getter function, which allows Angular to track where the signal is used.</li>
-    <li>Signals may be either writable or read-only.</li>
+  <li>
+    A signal is a value that Angular watches. When the value changes, Angular automatically updates
+    only the parts of the screen that use it.
+  </li>
+  <li>Signals can contain any value, from primitives to complex data structures.</li>
+  <li>
+    You read a signal's value by calling its getter function, which allows Angular to track where
+    the signal is used.
+  </li>
+  <li>Signals may be either writable or read-only.</li>
 </ul>
 <h1>Count: {{ count() }}</h1>
 <p>Double: {{ double() }}</p>
-<button (click)="increment()">+1</button>
-<button (click)="reset()">Reset</button>
+<button (click)="increment()" class="mb-3">+1</button>
+<button (click)="reset()" class="mb-2">Reset</button>
+
+<!-- Section 2 Control flow: @if and @for -->
+<div class="border p-2 text-primary mb-2">Control flow: if and for</div>
+<input [(ngModel)]="newTodo" placeholder="Add todo" />
+<button (click)="add()">Add</button>
+@if (todos().length === 0) {
+  <p>No todos yet!</p>
+} @else {
+  <ul>
+    @for (todo of todos(); track todo) {
+      <li>{{ todo }} <button (click)="remove(todo)">x</button></li>
+    }
+  </ul>
+}
 <router-outlet />

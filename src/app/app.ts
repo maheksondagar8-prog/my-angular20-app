@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -9,4 +9,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('my-angular20-app');
+  count = signal(0);
+  double = computed(() => this.count() * 2);
+
+  // Increment
+  increment() { 
+    this.count.update(c => c + 1); 
+  }
+  // reset data
+  reset() { this.count.set(0); }
 }

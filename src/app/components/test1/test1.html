@@ -1,0 +1,56 @@
+<!-- Section 1 Signal -->
+<div class="border p-2 text-primary mb-2">Component with Signals</div>
+<ul>
+  <li>
+    A signal is a value that Angular watches. When the value changes, Angular automatically updates
+    only the parts of the screen that use it.
+  </li>
+  <li>Signals can contain any value, from primitives to complex data structures.</li>
+  <li>
+    You read a signal's value by calling its getter function, which allows Angular to track where
+    the signal is used.
+  </li>
+  <li>Signals may be either writable or read-only.</li>
+</ul>
+<h1>Count: {{ count() }}</h1>
+<p>Double: {{ double() }}</p>
+<button (click)="increment()" class="mb-3">+1</button>
+<button (click)="reset()" class="mb-2">Reset</button>
+
+<!-- Section 2 Control flow: @if and @for -->
+<div class="border p-2 text-primary mb-2">Control flow: if and for</div>
+<input [(ngModel)]="newTodo" placeholder="Add todo" />
+<button (click)="add()">Add</button>
+@if (todos().length === 0) {
+  <p>No todos yet!</p>
+} @else {
+  <ul>
+    @for (todo of todos(); track todo) {
+      <li>{{ todo }} <button (click)="remove(todo)">x</button></li>
+    }
+  </ul>
+}
+<!-- Switch Case logic -->
+<p>--- Role Base data show ----</p>
+@for (user of users(); track user.id) {
+  @switch (user.role) {
+    @case ('admin') {
+      <p>{{ user.name }} (Admin)</p>
+    }
+    @case ('guest') {
+      <p>{{ user.name }} (Guest)</p>
+    }
+    @default {
+      <p>{{ user.name }}</p>
+    }
+  }
+} @empty {
+  <p>No users</p>
+}
+<!-- Table View -->
+<p>--- Table view ---</p>
+@for (user of users(); track user.id) {
+  <p>{{ user.name }} - {{ user.role }}</p>
+} @empty {
+  <p>No users</p>
+}

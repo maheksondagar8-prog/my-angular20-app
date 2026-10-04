@@ -31,8 +31,11 @@
     "@angular/platform-server": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@angular/ssr": "^20.3.37",
+    "@primeuix/themes": "^3.0.1",
     "bootstrap": "^5.3.8",
     "express": "^5.1.0",
+    "primeicons": "^8.0.2",
+    "primeng": "^22.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

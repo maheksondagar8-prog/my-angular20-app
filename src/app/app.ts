@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet , FormsModule],
+  imports: [RouterOutlet, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -15,6 +15,12 @@ export class App {
   count = signal(0);
   double = computed(() => this.count() * 2);
 
+  users = signal([
+    { id: 1, name: 'Asha', role: 'admin' },
+    { id: 2, name: 'Ravi', role: 'guest' },
+    { id: 3, name: 'Meera', role: 'user' },
+  ]);
+
   // Increment
   increment() { 
     this.count.update(c => c + 1);
@@ -24,7 +30,6 @@ export class App {
 
 
   add() {
-  debugger
     if (!this.newTodo.trim()) return;
     this.todos.update(list => [...list, this.newTodo]);
     this.newTodo = '';

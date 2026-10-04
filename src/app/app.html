@@ -30,4 +30,28 @@
     }
   </ul>
 }
+<!-- Switch Case logic -->
+<p>--- Role Base data show  ----</p>
+@for (user of users(); track user.id) {
+  @switch (user.role) {
+    @case ('admin') {
+      <p>{{ user.name }} (Admin)</p>
+    }
+    @case ('guest') {
+      <p>{{ user.name }} (Guest)</p>
+    }
+    @default {
+      <p>{{ user.name }}</p>
+    }
+  }
+} @empty {
+  <p>No users</p>
+}
+<!-- Table View -->
+<p>--- Table view ---</p>
+@for (user of users(); track user.id) {
+  <p>{{ user.name }} - {{ user.role }}</p>
+} @empty {
+  <p>No users</p>
+}
 <router-outlet />

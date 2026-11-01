@@ -1,1 +1,66 @@
-<p>employee works!</p>
+<div class="card">
+  <div class="d-flex justify-content-between mb-3">
+    <h2>Employees</h2>
+
+    <p-button label="Add Employee" icon="pi pi-plus" (onClick)="openAddEmployee()"> </p-button>
+  </div>
+
+  <p-table [value]="employees" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Designation</th>
+        <th>Salary</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-employee>
+      <tr>
+        <td>{{ employee.name }}</td>
+
+        <td>{{ employee.email }}</td>
+
+        <td>{{ employee.department }}</td>
+
+        <td>{{ employee.designation }}</td>
+
+        <td>{{ employee.salary }}</td>
+
+        <td>
+
+          <p-button
+            icon="pi pi-pencil"
+            severity="info">
+          </p-button>
+
+          <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            (onClick)="deleteEmployee(employee.id)">
+          </p-button>
+
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  header="Add Employee"
+  [(visible)]="displayDialog"
+  [modal]="true"
+  [style]="{ width: '450px' }">
+
+  <p>Employee form will be added here.</p>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Cancel"
+      severity="secondary"
+      (onClick)="displayDialog = false">
+    </p-button>
+  </ng-template>
+</p-dialog>

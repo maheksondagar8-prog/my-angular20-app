@@ -28,17 +28,13 @@ export class EmployeeService {
     return this.employees;
   }
 
-  addEmployee(employee: Emp): void {
-    employee.id = this.employees.length + 1;
-    this.employees.push(employee);
-  }
+  addEmployee(employee: Omit<Emp, 'id'>): void {
+    const newEmployee: Emp = {
+      id: Math.max(0, ...this.employees.map((x) => x.id)) + 1,
+      ...employee,
+    };
 
-  updateEmployee(employee: Emp): void {
-    const index = this.employees.findIndex((x) => x.id === employee.id);
-
-    if (index !== -1) {
-      this.employees[index] = employee;
-    }
+    this.employees.push(newEmployee);
   }
 
   deleteEmployee(id: number): void {

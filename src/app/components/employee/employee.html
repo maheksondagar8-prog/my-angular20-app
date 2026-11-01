@@ -30,6 +30,13 @@
         <td>{{ employee.salary }}</td>
 
         <td>
+          <p-button
+            icon="pi pi-pencil"
+            severity="secondary"
+            (onClick)="openEditEmployee(employee)"
+            ariaLabel="Edit employee"
+          >
+          </p-button>
           <p-button icon="pi pi-trash" severity="danger" (onClick)="deleteEmployee(employee.id)">
           </p-button>
         </td>
@@ -46,7 +53,7 @@
 
 <!-- Add Employee Dialog -->
 <p-dialog
-  header="Add Employee"
+  [header]="editingEmployeeId === null ? 'Add Employee' : 'Edit Employee'"
   [(visible)]="displayDialog"
   [modal]="true"
   [style]="{ width: '500px' }"
@@ -152,7 +159,12 @@
       <p-button label="Cancel" severity="secondary" type="button" (onClick)="displayDialog = false">
       </p-button>
 
-      <p-button label="Save Employee" icon="pi pi-check" type="submit"> </p-button>
+      <p-button
+        [label]="editingEmployeeId === null ? 'Save Employee' : 'Update Employee'"
+        icon="pi pi-check"
+        type="submit"
+      >
+      </p-button>
     </div>
   </form>
 </p-dialog>

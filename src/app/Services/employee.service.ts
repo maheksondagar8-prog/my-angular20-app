@@ -37,6 +37,12 @@ export class EmployeeService {
     this.employees.push(newEmployee);
   }
 
+  updateEmployee(updatedEmployee: Emp): void {
+    this.employees = this.employees.map((employee) =>
+      employee.id === updatedEmployee.id ? updatedEmployee : employee,
+    );
+  }
+
   deleteEmployee(id: number): void {
     this.employees = this.employees.filter((x) => x.id !== id);
   }

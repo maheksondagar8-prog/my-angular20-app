@@ -18,6 +18,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 export class Employee {
   employees: Emp[] = [];
   displayDialog = false;
+  editingEmployeeId: number | null = null;
   departments = ['IT', 'HR', 'Finance', 'Marketing'];
 
   employeeForm!: FormGroup;
@@ -37,6 +38,7 @@ export class Employee {
   }
 
   openAddEmployee(): void {
+    this.editingEmployeeId = null;
     this.employeeForm.reset({
       name: '',
       email: '',
@@ -48,6 +50,12 @@ export class Employee {
     this.displayDialog = true;
   }
 
+  openEditEmployee(employee: Emp): void {
+    this.editingEmployeeId = employee.id;
+    this.employeeForm.patchValue(employee);
+    this.displayDialog = true;
+  }
+
   saveEmployee(): void {
     if (this.employeeForm.invalid) {
       this.employeeForm.markAllAsTouched();
@@ -55,12 +63,17 @@ export class Employee {
     }
 
     const employee = this.employeeForm.getRawValue() as Omit<Emp, 'id'>;
-    this.employeeService.addEmployee(employee);
+    if (this.editingEmployeeId === null) {
+      this.employeeService.addEmployee(employee);
+    } else {
+      this.employeeService.updateEmployee({ id: this.editingEmployeeId, ...employee });
+    }
 
     // Refresh employee table
     this.employees = [...this.employeeService.getEmployees()];
     // Close dialog
     this.displayDialog = false;
+    this.editingEmployeeId = null;
     // Reset form
     this.employeeForm.reset();
   }

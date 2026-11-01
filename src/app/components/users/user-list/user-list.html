@@ -1,1 +1,10 @@
-<p>user-list works!</p>
+<h2>Users</h2>
+
+@for (u of users(); track u.id) {
+  <div>
+    <a [routerLink]="['/users', u.id]">{{ u.name }}</a>
+    - {{ u.email }}
+  </div>
+} @empty {
+  <p>Loading or no users found...</p>
+}

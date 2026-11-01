@@ -1,4 +1,7 @@
-import { Component , input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
+import { UserService } from '../../../Services/users/user.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -8,4 +11,11 @@ import { Component , input } from '@angular/core';
 })
 export class UserDetail {
   id = input.required<string>();
+  private userService = inject(UserService);
+
+  user = toSignal(
+    toObservable(this.id).pipe(
+      switchMap(id => this.userService.getById(Number(id)))
+    )
+  );
 }

@@ -21,7 +21,7 @@ export class Login {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  submit() {
+  submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -29,11 +29,13 @@ export class Login {
 
     const { email, password } = this.form.getRawValue();
 
-    if (this.auth.login(email, password)) {
-      this.router.navigate(['/users']);
-    } else {
-      this.error.set('Invalid email or password');
-    }
+    this.error.set('');
+    this.auth.login(email, password).subscribe({
+      next: () => this.router.navigate(['/users']),
+      error: (error) => {
+        this.error.set(error.error?.message ?? 'Login failed. Check your email and password.');
+      },
+    });
   }
 
 }

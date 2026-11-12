@@ -4,8 +4,11 @@ import { User } from '../../models/user';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+  // private http = inject(HttpClient);
+  // private api = 'https://jsonplaceholder.typicode.com/users';
+
   private http = inject(HttpClient);
-  private api = 'https://jsonplaceholder.typicode.com/users';
+  private api = 'http://localhost:3000/api/users';
 
   getAll() {
     return this.http.get<User[]>(this.api);
